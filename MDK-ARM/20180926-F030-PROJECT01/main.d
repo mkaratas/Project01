@@ -34,4 +34,4 @@
 20180926-f030-project01\main.o: ../Inc/tim.h
 20180926-f030-project01\main.o: ../Inc/usart.h
 20180926-f030-project01\main.o: ../Inc/gpio.h
-20180926-f030-project01\main.o: ../Inc/sevensegment.h
+20180926-f030-project01\main.o: ../Inc/sevseg.h

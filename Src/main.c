@@ -5,9 +5,16 @@
 #include "usart.h"
 #include "gpio.h"
 
-#include "sevensegment.h"
+#include "sevseg.h"
+
+control_state Control_SevSegScan;
 
 void SystemClock_Config(void);
+
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
+	if( htim->Instance == TIM6 ) 
+		Control_SevSegScan = CHECKIT; 
+}
 
 
 int main(void)
@@ -17,12 +24,20 @@ int main(void)
   SystemClock_Config();
 
   MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_USART1_UART_Init();
+	MX_TIM6_Init();
+	
+//  MX_DMA_Init();
+//  MX_USART1_UART_Init();
 //  MX_TIM3_Init();
-//  MX_TIM6_Init();
 
-  while ( 1 )  {
+
+	HAL_TIM_Base_Start_IT( &htim6 );
+	SevenSegmentDisplay_SixDigitWrite( "BABABA" , 0x00 );
+	while ( 1 ) {                                     
+		if ( Control_SevSegScan == CHECKIT ){
+			Control_SevSegScan=CHECKED;
+			SevenSegmentDisplay_Scan();
+		}
 
   }
 }

@@ -416,9 +416,9 @@
               <FilePath>../Src/tim.c</FilePath>
             </File>
             <File>
-              <FileName>sevensegment.c</FileName>
+              <FileName>sevseg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\sevensegment.c</FilePath>
+              <FilePath>..\Src\sevseg.c</FilePath>
             </File>
           </Files>
         </Group>

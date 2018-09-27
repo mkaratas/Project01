@@ -6,6 +6,7 @@
 "20180926-f030-project01\dma.o"
 "20180926-f030-project01\gpio.o"
 "20180926-f030-project01\tim.o"
+"20180926-f030-project01\sevseg.o"
 "20180926-f030-project01\startup_stm32f030x8.o"
 "20180926-f030-project01\system_stm32f0xx.o"
 "20180926-f030-project01\stm32f0xx_hal_pwr.o"

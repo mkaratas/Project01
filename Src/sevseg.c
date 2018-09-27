@@ -1,13 +1,6 @@
 #include "stm32f0xx_hal.h"
-#include "sevensegment.h"
+#include "sevseg.h"
 
-/**********************************************
-	BUTTON  *		BUTTON  *		BUTTON  *		BUTTON  *
-	 EXIT		*	   LEFT		*	    UP		*    ENTER  *
-***********************************************/
-uint8_t ButtonState[4];				//	ButtonState[0]	--->	S1		--->		Left  Most Button
-															//	ButtonState[3]	--->	S3		--->		Right Most Button
-uint8_t ButtonStateWait[4];
 uint8_t DigitData[6];
 uint8_t	Digit_Dp[6];
 
@@ -64,9 +57,6 @@ const char character_table[] = {
 			0x6F , //			37			|		"9"		Character		|			9
 };
 
-/*					-----------------------------------------------------------------------------------------------------------						*/
-/*					***			***			***			***			***			***			***			***			***			***			***			***			***			***						*/
-/*					----------------------------------------------------------------------------------------------------------						*/
 void SevenSegmentDisplay_DigitSelect		( uint8_t	SelectDigit) {
 	/***************************************************************************************************		
 	*
@@ -78,35 +68,27 @@ void SevenSegmentDisplay_DigitSelect		( uint8_t	SelectDigit) {
 	* SelectDigit=0x20 ---> [X][_][_][_][_][_] Left Most Display Digit Enabled
 	*
 	***************************************************************************************************/
-	
-	(SelectDigit&0x20) ? HAL_GPIO_WritePin(  SCAN6_GPIO_Port , SCAN6_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN6_GPIO_Port , SCAN6_Pin , GPIO_PIN_SET 	 );		
-	(SelectDigit&0x10) ? HAL_GPIO_WritePin(  SCAN5_GPIO_Port , SCAN5_Pin , GPIO_PIN_RESET ) :	HAL_GPIO_WritePin(  SCAN5_GPIO_Port , SCAN5_Pin , GPIO_PIN_SET	 );
-	(SelectDigit&0x08) ? HAL_GPIO_WritePin(  SCAN4_GPIO_Port , SCAN4_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN4_GPIO_Port , SCAN4_Pin , GPIO_PIN_SET   );	
-	(SelectDigit&0x04) ? HAL_GPIO_WritePin(  SCAN3_GPIO_Port , SCAN3_Pin , GPIO_PIN_RESET )	:	HAL_GPIO_WritePin(  SCAN3_GPIO_Port , SCAN3_Pin , GPIO_PIN_SET   );		
-	(SelectDigit&0x02) ? HAL_GPIO_WritePin(  SCAN2_GPIO_Port , SCAN2_Pin , GPIO_PIN_RESET ) :	HAL_GPIO_WritePin(  SCAN2_GPIO_Port , SCAN2_Pin , GPIO_PIN_SET   );	
-	(SelectDigit&0x01) ? HAL_GPIO_WritePin(  SCAN1_GPIO_Port , SCAN1_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN1_GPIO_Port , SCAN1_Pin , GPIO_PIN_SET   );	
+	(SelectDigit&0x20) ? DIGIT_6_ENABLE : DIGIT_6_DISABLE;		
+	(SelectDigit&0x10) ? DIGIT_5_ENABLE :	DIGIT_5_DISABLE;
+	(SelectDigit&0x08) ? DIGIT_4_ENABLE : DIGIT_4_DISABLE;	
+	(SelectDigit&0x04) ? DIGIT_3_ENABLE	:	DIGIT_3_DISABLE;		
+	(SelectDigit&0x02) ? DIGIT_2_ENABLE :	DIGIT_2_DISABLE;	
+	(SelectDigit&0x01) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;	
 }
 /*					----------------------------------------------------------------------------------------------------------						*/
 void SevenSegmentDisplay_DigitDataWrite ( char value , uint8_t dp ) {
-	((value&0x01) == 0x01) ? HAL_GPIO_WritePin( SEGA_GPIO_Port  , SEGA_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGA_GPIO_Port  , SEGA_Pin  , GPIO_PIN_SET	);
-	((value&0x02) == 0x02) ? HAL_GPIO_WritePin( SEGB_GPIO_Port  , SEGB_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGB_GPIO_Port  , SEGB_Pin  , GPIO_PIN_SET	);
-	((value&0x04) == 0x04) ? HAL_GPIO_WritePin( SEGC_GPIO_Port  , SEGC_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGC_GPIO_Port  , SEGC_Pin  , GPIO_PIN_SET	);
-	((value&0x08) == 0x08) ? HAL_GPIO_WritePin( SEGD_GPIO_Port  , SEGD_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGD_GPIO_Port  , SEGD_Pin  , GPIO_PIN_SET	);
-	((value&0x10) == 0x10) ? HAL_GPIO_WritePin( SEGE_GPIO_Port  , SEGE_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGE_GPIO_Port  , SEGE_Pin  , GPIO_PIN_SET	);
-	((value&0x20) == 0x20) ? HAL_GPIO_WritePin( SEGF_GPIO_Port  , SEGF_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGF_GPIO_Port  , SEGF_Pin  , GPIO_PIN_SET	);
-	((value&0x40) == 0x40) ? HAL_GPIO_WritePin( SEGG_GPIO_Port  , SEGG_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGG_GPIO_Port  , SEGG_Pin  , GPIO_PIN_SET	);
+	((value&0x01) == 0x01) ? SEGMENT_A_ENABLE  : SEGMENT_A_DISABLE;
+	((value&0x02) == 0x02) ? SEGMENT_B_ENABLE  : SEGMENT_B_DISABLE;
+	((value&0x04) == 0x04) ? SEGMENT_C_ENABLE  : SEGMENT_C_DISABLE;
+	((value&0x08) == 0x08) ? SEGMENT_D_ENABLE  : SEGMENT_D_DISABLE;
+	((value&0x10) == 0x10) ? SEGMENT_E_ENABLE  : SEGMENT_E_DISABLE;
+	((value&0x20) == 0x20) ? SEGMENT_F_ENABLE  : SEGMENT_F_DISABLE;
+	((value&0x40) == 0x40) ? SEGMENT_G_ENABLE  : SEGMENT_G_DISABLE;	
 	
-	( dp == 1 )	?	HAL_GPIO_WritePin( SEGDP_GPIO_Port , SEGDP_Pin , GPIO_PIN_RESET)	:	HAL_GPIO_WritePin( SEGDP_GPIO_Port , SEGDP_Pin , GPIO_PIN_SET);
+	( dp == 1 )						 ? SEGMENT_DP_ENABLE : SEGMENT_DP_DISABLE;
 }
 /*					----------------------------------------------------------------------------------------------------------						*/
 void SevenSegmentDisplay_SixDigitWrite	( char DigitString[6] , uint8_t Points ) {
-//	TxData[0] = DigitString[0]; 
-//	TxData[1] = DigitString[1];
-//	TxData[2] = DigitString[2];
-//	TxData[3] = DigitString[3];
-//	TxData[4] = DigitString[4];
-//	TxData[5] = DigitString[5];
-//	TxData[6] = Points;
  	for( uint8_t i=0 ; i<=5 ; i++ )	{
 		uint8_t volatile_value;
 		volatile_value  = ( (uint8_t)DigitString[i] );
@@ -122,57 +104,34 @@ void SevenSegmentDisplay_SixDigitWrite	( char DigitString[6] , uint8_t Points ) 
 			volatile_value = volatile_value - ASCII_UPPERCASE_HEAD;
 		if( (volatile_value>=ASCII_LOWERCASE_HEAD) & (ASCII_LOWERCASE_END>=volatile_value) )
 			volatile_value = volatile_value - ASCII_LOWERCASE_HEAD;
-    DigitData[i] = character_table[volatile_value];
-		Digit_Dp[5-i]  = (  (Points&(0x01<<i))>>i  );
+    DigitData[5-i] = character_table[volatile_value];
+		Digit_Dp [ i ]  = (  (Points&(0x01<<i))>>i  );
 	}
 }
 /*					----------------------------------------------------------------------------------------------------------						*/
 void SevenSegmentDisplay_Scan						( void ) {
 	static uint8_t ScanStep = 0;
 	static uint8_t Selected = 0;
-	static uint8_t Sampling1[6] = { 0 , 0 , 0 , 0 , 0 , 0 };
-	static uint8_t Sampling2[6] = { 1 , 1 , 1 , 1 , 1 , 1 };	
-	static uint8_t Sampling3[6] = { 1 , 1 , 1 , 1 , 1 , 1 };
 	ScanStep++;
-	switch( ScanStep )
-	{
-		case  1:
+	switch ( ScanStep ) {
+		case  1 :		// Taramanin 25 de biri kadar bütün displayleri pasf yapma
+			SevenSegmentDisplay_DigitSelect   ( 0x01<<Selected );
 			SevenSegmentDisplay_DigitDataWrite( DigitData[Selected] , Digit_Dp[Selected] );
-			SevenSegmentDisplay_DigitSelect( 0x01<<Selected );
 			break;
-		case	10:
-			Sampling1[Selected] = Sampling2[Selected];		// 	Old data is saving
-			Sampling2[Selected] = HAL_GPIO_ReadPin ( KRL_GPIO_Port , KRL_Pin );
+		case 24 :
+			SevenSegmentDisplay_DigitSelect		( 0x00 );
+			SevenSegmentDisplay_DigitDataWrite( 0xFF , 0x01 );		
 			break;
-		case 20:
-			Sampling3[Selected] = HAL_GPIO_ReadPin ( KRL_GPIO_Port , KRL_Pin );
-			break;
-		case 25:
-			SevenSegmentDisplay_DigitSelect( 0x00 );
+		case 25 :	// Tarama sirasi gelen display datlarini kesme
+	    
 			ScanStep = 0;
 			Selected++;
 			if( Selected > 5 ) 
 				Selected = 0;
 			break;
-		default:
+		
+		default :
 			break;
-	}
-//	#define BUTTON_STATE_CALCULATE(x) ( (Sampling1[x]) & (!Sampling2[x]) & (!Sampling3[x]) )
-	if( (Sampling1[4]) & (!Sampling2[4]) & (!Sampling3[4]) & BTN_EXIT_WAIT ) {		//	Button_1 Most Left 	Button
-		 BUTTON_EXIT = BUTTON_STATE_PRESS;
-		 BTN_EXIT_WAIT = BUTTON_100MS_WAIT;
-	} 
-	if( (Sampling1[2]) & (!Sampling2[2]) & (!Sampling3[2]) & BTN_LEFT_WAIT ) {		//  Button_2
-		 BUTTON_LEFT = BUTTON_STATE_PRESS;
-		 BTN_LEFT_WAIT = BUTTON_100MS_WAIT; 		 
-	}
-	if( (Sampling1[5]) & (!Sampling2[5]) & (!Sampling3[5]) & BTN_UP_WAIT ) {			//  Button_3
-		 BUTTON_UP = BUTTON_STATE_PRESS;	
-		 BTN_UP_WAIT = BUTTON_100MS_WAIT;
-	}
-	if( (Sampling1[3]) & (!Sampling2[3]) & (!Sampling3[3]) & BTN_ENTR_WAIT ) {		//  Button_4  Most Right Button
-		 BUTTON_ENTER =	BUTTON_STATE_PRESS;
-		 BTN_ENTR_WAIT = BUTTON_100MS_WAIT;		 
 	}
 }
 /*					----------------------------------------------------------------------------------------------------------						*/
