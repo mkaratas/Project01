@@ -415,6 +415,11 @@
               <FileType>1</FileType>
               <FilePath>../Src/tim.c</FilePath>
             </File>
+            <File>
+              <FileName>sevensegment.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\sevensegment.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

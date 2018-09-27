@@ -5,6 +5,8 @@
 #include "usart.h"
 #include "gpio.h"
 
+#include "sevensegment.h"
+
 void SystemClock_Config(void);
 
 

@@ -26,36 +26,71 @@ Project File Date:  09/27/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target '20180926-F030-PROJECT01'
+Build target '20180926-F030-PROJECT01'
+compiling sevensegment.c...
+..\Src\sevensegment.c(82): error:  #20: identifier "SCAN6_GPIO_Port" is undefined
+  	(SelectDigit&0x20) ? HAL_GPIO_WritePin(  SCAN6_GPIO_Port , SCAN6_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN6_GPIO_Port , SCAN6_Pin , GPIO_PIN_SET 	 );		
+..\Src\sevensegment.c(82): error:  #20: identifier "SCAN6_Pin" is undefined
+  	(SelectDigit&0x20) ? HAL_GPIO_WritePin(  SCAN6_GPIO_Port , SCAN6_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN6_GPIO_Port , SCAN6_Pin , GPIO_PIN_SET 	 );		
+..\Src\sevensegment.c(83): error:  #20: identifier "SCAN5_GPIO_Port" is undefined
+  	(SelectDigit&0x10) ? HAL_GPIO_WritePin(  SCAN5_GPIO_Port , SCAN5_Pin , GPIO_PIN_RESET ) :	HAL_GPIO_WritePin(  SCAN5_GPIO_Port , SCAN5_Pin , GPIO_PIN_SET	 );
+..\Src\sevensegment.c(83): error:  #20: identifier "SCAN5_Pin" is undefined
+  	(SelectDigit&0x10) ? HAL_GPIO_WritePin(  SCAN5_GPIO_Port , SCAN5_Pin , GPIO_PIN_RESET ) :	HAL_GPIO_WritePin(  SCAN5_GPIO_Port , SCAN5_Pin , GPIO_PIN_SET	 );
+..\Src\sevensegment.c(84): error:  #20: identifier "SCAN4_GPIO_Port" is undefined
+  	(SelectDigit&0x08) ? HAL_GPIO_WritePin(  SCAN4_GPIO_Port , SCAN4_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN4_GPIO_Port , SCAN4_Pin , GPIO_PIN_SET   );	
+..\Src\sevensegment.c(84): error:  #20: identifier "SCAN4_Pin" is undefined
+  	(SelectDigit&0x08) ? HAL_GPIO_WritePin(  SCAN4_GPIO_Port , SCAN4_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN4_GPIO_Port , SCAN4_Pin , GPIO_PIN_SET   );	
+..\Src\sevensegment.c(85): error:  #20: identifier "SCAN3_GPIO_Port" is undefined
+  	(SelectDigit&0x04) ? HAL_GPIO_WritePin(  SCAN3_GPIO_Port , SCAN3_Pin , GPIO_PIN_RESET )	:	HAL_GPIO_WritePin(  SCAN3_GPIO_Port , SCAN3_Pin , GPIO_PIN_SET   );		
+..\Src\sevensegment.c(85): error:  #20: identifier "SCAN3_Pin" is undefined
+  	(SelectDigit&0x04) ? HAL_GPIO_WritePin(  SCAN3_GPIO_Port , SCAN3_Pin , GPIO_PIN_RESET )	:	HAL_GPIO_WritePin(  SCAN3_GPIO_Port , SCAN3_Pin , GPIO_PIN_SET   );		
+..\Src\sevensegment.c(86): error:  #20: identifier "SCAN2_GPIO_Port" is undefined
+  	(SelectDigit&0x02) ? HAL_GPIO_WritePin(  SCAN2_GPIO_Port , SCAN2_Pin , GPIO_PIN_RESET ) :	HAL_GPIO_WritePin(  SCAN2_GPIO_Port , SCAN2_Pin , GPIO_PIN_SET   );	
+..\Src\sevensegment.c(86): error:  #20: identifier "SCAN2_Pin" is undefined
+  	(SelectDigit&0x02) ? HAL_GPIO_WritePin(  SCAN2_GPIO_Port , SCAN2_Pin , GPIO_PIN_RESET ) :	HAL_GPIO_WritePin(  SCAN2_GPIO_Port , SCAN2_Pin , GPIO_PIN_SET   );	
+..\Src\sevensegment.c(87): error:  #20: identifier "SCAN1_GPIO_Port" is undefined
+  	(SelectDigit&0x01) ? HAL_GPIO_WritePin(  SCAN1_GPIO_Port , SCAN1_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN1_GPIO_Port , SCAN1_Pin , GPIO_PIN_SET   );	
+..\Src\sevensegment.c(87): error:  #20: identifier "SCAN1_Pin" is undefined
+  	(SelectDigit&0x01) ? HAL_GPIO_WritePin(  SCAN1_GPIO_Port , SCAN1_Pin , GPIO_PIN_RESET ) : HAL_GPIO_WritePin(  SCAN1_GPIO_Port , SCAN1_Pin , GPIO_PIN_SET   );	
+..\Src\sevensegment.c(91): error:  #20: identifier "SEGA_GPIO_Port" is undefined
+  	((value&0x01) == 0x01) ? HAL_GPIO_WritePin( SEGA_GPIO_Port  , SEGA_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGA_GPIO_Port  , SEGA_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(91): error:  #20: identifier "SEGA_Pin" is undefined
+  	((value&0x01) == 0x01) ? HAL_GPIO_WritePin( SEGA_GPIO_Port  , SEGA_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGA_GPIO_Port  , SEGA_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(92): error:  #20: identifier "SEGB_GPIO_Port" is undefined
+  	((value&0x02) == 0x02) ? HAL_GPIO_WritePin( SEGB_GPIO_Port  , SEGB_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGB_GPIO_Port  , SEGB_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(92): error:  #20: identifier "SEGB_Pin" is undefined
+  	((value&0x02) == 0x02) ? HAL_GPIO_WritePin( SEGB_GPIO_Port  , SEGB_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGB_GPIO_Port  , SEGB_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(93): error:  #20: identifier "SEGC_GPIO_Port" is undefined
+  	((value&0x04) == 0x04) ? HAL_GPIO_WritePin( SEGC_GPIO_Port  , SEGC_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGC_GPIO_Port  , SEGC_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(93): error:  #20: identifier "SEGC_Pin" is undefined
+  	((value&0x04) == 0x04) ? HAL_GPIO_WritePin( SEGC_GPIO_Port  , SEGC_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGC_GPIO_Port  , SEGC_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(94): error:  #20: identifier "SEGD_GPIO_Port" is undefined
+  	((value&0x08) == 0x08) ? HAL_GPIO_WritePin( SEGD_GPIO_Port  , SEGD_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGD_GPIO_Port  , SEGD_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(94): error:  #20: identifier "SEGD_Pin" is undefined
+  	((value&0x08) == 0x08) ? HAL_GPIO_WritePin( SEGD_GPIO_Port  , SEGD_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGD_GPIO_Port  , SEGD_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(95): error:  #20: identifier "SEGE_GPIO_Port" is undefined
+  	((value&0x10) == 0x10) ? HAL_GPIO_WritePin( SEGE_GPIO_Port  , SEGE_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGE_GPIO_Port  , SEGE_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(95): error:  #20: identifier "SEGE_Pin" is undefined
+  	((value&0x10) == 0x10) ? HAL_GPIO_WritePin( SEGE_GPIO_Port  , SEGE_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGE_GPIO_Port  , SEGE_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(96): error:  #20: identifier "SEGF_GPIO_Port" is undefined
+  	((value&0x20) == 0x20) ? HAL_GPIO_WritePin( SEGF_GPIO_Port  , SEGF_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGF_GPIO_Port  , SEGF_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(96): error:  #20: identifier "SEGF_Pin" is undefined
+  	((value&0x20) == 0x20) ? HAL_GPIO_WritePin( SEGF_GPIO_Port  , SEGF_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGF_GPIO_Port  , SEGF_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(97): error:  #20: identifier "SEGG_GPIO_Port" is undefined
+  	((value&0x40) == 0x40) ? HAL_GPIO_WritePin( SEGG_GPIO_Port  , SEGG_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGG_GPIO_Port  , SEGG_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(97): error:  #20: identifier "SEGG_Pin" is undefined
+  	((value&0x40) == 0x40) ? HAL_GPIO_WritePin( SEGG_GPIO_Port  , SEGG_Pin  , GPIO_PIN_RESET) : HAL_GPIO_WritePin( SEGG_GPIO_Port  , SEGG_Pin  , GPIO_PIN_SET	);
+..\Src\sevensegment.c(99): error:  #20: identifier "SEGDP_GPIO_Port" is undefined
+  	( dp == 1 )	?	HAL_GPIO_WritePin( SEGDP_GPIO_Port , SEGDP_Pin , GPIO_PIN_RESET)	:	HAL_GPIO_WritePin( SEGDP_GPIO_Port , SEGDP_Pin , GPIO_PIN_SET);
+..\Src\sevensegment.c(99): error:  #20: identifier "SEGDP_Pin" is undefined
+  	( dp == 1 )	?	HAL_GPIO_WritePin( SEGDP_GPIO_Port , SEGDP_Pin , GPIO_PIN_RESET)	:	HAL_GPIO_WritePin( SEGDP_GPIO_Port , SEGDP_Pin , GPIO_PIN_SET);
+..\Src\sevensegment.c(145): error:  #20: identifier "KRL_GPIO_Port" is undefined
+  			Sampling2[Selected] = HAL_GPIO_ReadPin ( KRL_GPIO_Port , KRL_Pin );
+..\Src\sevensegment.c(145): error:  #20: identifier "KRL_Pin" is undefined
+  			Sampling2[Selected] = HAL_GPIO_ReadPin ( KRL_GPIO_Port , KRL_Pin );
+..\Src\sevensegment.c: 0 warnings, 30 errors
 compiling main.c...
-compiling stm32f0xx_it.c...
-compiling stm32f0xx_hal_msp.c...
-compiling usart.c...
-assembling startup_stm32f030x8.s...
-compiling dma.c...
-compiling gpio.c...
-compiling tim.c...
-compiling system_stm32f0xx.c...
-compiling stm32f0xx_hal_pwr.c...
-compiling stm32f0xx_hal_dma.c...
-compiling stm32f0xx_hal_rcc.c...
-compiling stm32f0xx_hal_flash_ex.c...
-compiling stm32f0xx_hal_rcc_ex.c...
-compiling stm32f0xx_hal_gpio.c...
-compiling stm32f0xx_hal_i2c.c...
-compiling stm32f0xx_hal_cortex.c...
-compiling stm32f0xx_hal_uart_ex.c...
-compiling stm32f0xx_hal_pwr_ex.c...
-compiling stm32f0xx_hal_tim.c...
-compiling stm32f0xx_hal_i2c_ex.c...
-compiling stm32f0xx_hal_tim_ex.c...
-compiling stm32f0xx_hal.c...
-compiling stm32f0xx_hal_flash.c...
-compiling stm32f0xx_hal_uart.c...
-linking...
-Program Size: Code=5190 RO-data=238 RW-data=8 ZI-data=1400  
-FromELF: creating hex file...
-"20180926-F030-PROJECT01\20180926-F030-PROJECT01.axf" - 0 Error(s), 0 Warning(s).
+"20180926-F030-PROJECT01\20180926-F030-PROJECT01.axf" - 30 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -78,7 +113,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:09
+Target not created.
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
