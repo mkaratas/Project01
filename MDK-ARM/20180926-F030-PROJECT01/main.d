@@ -35,3 +35,4 @@
 20180926-f030-project01\main.o: ../Inc/usart.h
 20180926-f030-project01\main.o: ../Inc/gpio.h
 20180926-f030-project01\main.o: ../Inc/sevseg.h
+20180926-f030-project01\main.o: ../Inc/lcd2x16.h

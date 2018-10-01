@@ -420,6 +420,11 @@
               <FileType>1</FileType>
               <FilePath>..\Src\sevseg.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd2x16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\lcd2x16.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

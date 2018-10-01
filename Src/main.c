@@ -6,6 +6,8 @@
 #include "gpio.h"
 
 #include "sevseg.h"
+#include "lcd2x16.h"
+
 
 control_state Control_SevSegScan;
 
@@ -13,7 +15,7 @@ void SystemClock_Config(void);
 
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
 	if( htim->Instance == TIM6 ) 
-		Control_SevSegScan = CHECKIT; 
+		Control_SevSegScan = CHECKIT;
 }
 
 
@@ -30,16 +32,28 @@ int main(void)
 //  MX_USART1_UART_Init();
 //  MX_TIM3_Init();
 
+	lcd2x16_Init();
+	lcd2x16_Write_String( "    2x16 LCD");
+	lcd2x16_Position( LCD_LINE_2 , 1 );
+	lcd2x16_Write_String( " #  DENEMESI  #");
+		
+	HAL_Delay( 2000 );
+	__LCD2X16_CLEAR; 
+	lcd2x16_Position( LCD_LINE_2 , 11 );
+	lcd2x16_Write_String( "Bilkon" );
 
+                                    
 	HAL_TIM_Base_Start_IT( &htim6 );
-	SevenSegmentDisplay_SixDigitWrite( "BABABA" , 0x00 );
+	SevenSegmentDisplay_SixDigitWrite( "13579" , 0x00 );
+	
+	
+
 	while ( 1 ) {                                     
 		if ( Control_SevSegScan == CHECKIT ){
 			Control_SevSegScan=CHECKED;
 			SevenSegmentDisplay_Scan();
 		}
-
-  }
+	}
 }
 
 /** System Clock Configuration
