@@ -1,7 +1,7 @@
 #include "stm32f0xx_hal.h"
 #include "lcd2x16.h"
 
-#define LCD_4_BITS
+#define LCD_8_BITS
         
 /****		*****		*****		*****		*****		****/
 void lcd2x16_Write 		( uint8_t data , uint8_t rs ) {

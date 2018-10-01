@@ -8,14 +8,60 @@
 #include "sevseg.h"
 #include "lcd2x16.h"
 
+uint8_t sa = 0,
+				dk = 0,
+			  sn = 0;
+				
+char dizii[16];
 
 control_state Control_SevSegScan;
 
 void SystemClock_Config(void);
 
+void OperationClock ( void ) {
+	sn++;
+	DigitData[0] = character_table[28+sn%10];
+	DigitData[1] = character_table[28+sn/10];
+	dizii[6] = '0' + sn/10;
+	dizii[7] = '0' + sn%10;
+	if ( sn == 60 ) {
+		dk++;
+		sn = 0;
+		dizii[6] = '0' + sn/10;
+		dizii[7] = '0' + sn%10;
+		DigitData[0] = character_table[28+sn%10];
+		DigitData[1] = character_table[28+sn/10];
+	}
+	if ( dk == 60 ) {
+		sa++;
+		dk = 0; 
+		dizii[3] = '0' + dk/10;
+		dizii[4] = '0' + dk%10;
+		DigitData[0] = character_table[28+sn%10];
+		DigitData[1] = character_table[28+sn/10];
+		DigitData[2] = character_table[28+dk%10];
+		DigitData[3] = character_table[28+dk/10];		
+	}
+	if ( sa == 24 ) {
+		sa = 0;
+		dizii[0] = '0' + sa/10;
+		dizii[1] = '0' + sa%10;
+		DigitData[0] = character_table[28+sn%10];
+		DigitData[1] = character_table[28+sn/10];
+		DigitData[2] = character_table[28+dk%10];
+		DigitData[3] = character_table[28+dk/10];
+		DigitData[4] = character_table[28+sa%10];
+		DigitData[5] = character_table[28+sa/10]; 
+	}
+	lcd2x16_Position( LCD_LINE_2 , 1 );
+	lcd2x16_Write_String( &dizii[0] );
+}
+
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
 	if( htim->Instance == TIM6 ) 
 		Control_SevSegScan = CHECKIT;
+	if( htim->Instance == TIM3 )
+		OperationClock();
 }
 
 
@@ -30,7 +76,7 @@ int main(void)
 	
 //  MX_DMA_Init();
 //  MX_USART1_UART_Init();
-//  MX_TIM3_Init();
+  MX_TIM3_Init();
 
 	lcd2x16_Init();
 	lcd2x16_Write_String( "    2x16 LCD");
@@ -41,12 +87,39 @@ int main(void)
 	__LCD2X16_CLEAR; 
 	lcd2x16_Position( LCD_LINE_2 , 11 );
 	lcd2x16_Write_String( "Bilkon" );
-
-                                    
+  HAL_Delay( 1000 );
+	
+	lcd2x16_Position( LCD_LINE_1 , 1 );
+	lcd2x16_Write_String( "Sa Dk Sn");
+	
+	sa = 16;
+	dk = 40;
+	sn = 30;	
+	DigitData[0] = character_table[28+sn%10];
+	DigitData[1] = character_table[28+sn/10];
+	DigitData[2] = character_table[28+dk%10];
+	DigitData[3] = character_table[28+dk/10];
+	DigitData[4] = character_table[28+sa%10];
+	DigitData[5] = character_table[28+sa/10]; 
+	
+	dizii[2] = dizii[5] = dizii[8] = dizii[9] = ' ';
+	dizii[6] = '0' + sn/10;
+	dizii[7] = '0' + sn%10;
+	dizii[3] = '0' + dk/10;
+	dizii[4] = '0' + dk%10;
+	dizii[0] = '0' + sa/10;
+	dizii[1] = '0' + sa%10;
+	dizii[10] = 'B';
+	dizii[11] = 'i';
+	dizii[12] = 'l';
+	dizii[13] = 'k';
+	dizii[14] = 'o';
+	dizii[15] = 'n';
+	lcd2x16_Position( LCD_LINE_2 , 1 );
+	lcd2x16_Write_String( &dizii[0] );
+	
+  HAL_TIM_Base_Start_IT( &htim3 );		
 	HAL_TIM_Base_Start_IT( &htim6 );
-	SevenSegmentDisplay_SixDigitWrite( "13579" , 0x00 );
-	
-	
 
 	while ( 1 ) {                                     
 		if ( Control_SevSegScan == CHECKIT ){

@@ -38,12 +38,12 @@
 #define SEGMENT_DP_ENABLE 	HAL_GPIO_WritePin ( Seg_DP_GPIO_Port , Seg_DP_Pin , GPIO_PIN_RESET )
 #define SEGMENT_DP_DISABLE	HAL_GPIO_WritePin ( Seg_DP_GPIO_Port , Seg_DP_Pin , GPIO_PIN_SET	 )
 
-#define NULL_CHARACTER				10						//		character_table[] array number
-#define EQUAL_CHARACTER 			26 						//		character_table[] array number
-#define DASH_CHARACTER				27						//		character_table[] array number
+#define NULL_CHARACTER								10						//		character_table[] array number
+#define EQUAL_CHARACTER 							26 						//		character_table[] array number
+#define DASH_CHARACTER								27						//		character_table[] array number
 
-#define ASCII_NULL_VALUE			0							// 
-#define ASCII_SPACE_VALUE 		32						//
+#define ASCII_NULL_VALUE							0							// 
+#define ASCII_SPACE_VALUE 						32						//
 
 #define ASCII_DASH_VALUE							45						// -
 #define ASCII_EQUAL_VALUE 						61						// =
@@ -58,7 +58,7 @@
 
 extern uint8_t DigitData[6];
 extern uint8_t Digit_Dp[6];
-
+extern const char character_table[];
 
 void SevenSegmentDisplay_DigitSelect( uint8_t	SelectDigit);
 void SevenSegmentDisplay_DigitDataWrite( char value , uint8_t dp );
