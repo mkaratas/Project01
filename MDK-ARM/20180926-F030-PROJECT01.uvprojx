@@ -425,6 +425,16 @@
               <FileType>1</FileType>
               <FilePath>..\Src\lcd2x16.c</FilePath>
             </File>
+            <File>
+              <FileName>menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\panel.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

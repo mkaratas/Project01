@@ -7,139 +7,77 @@
 
 #include "sevseg.h"
 #include "lcd2x16.h"
+#include "menu.h"
+#include "panel.h"
 
-uint8_t sa = 0,
-				dk = 0,
-			  sn = 0;
-				
-char dizii[16];
+control_state Control_SevSegScan,
+							Control_PanelScan;	
 
-control_state Control_SevSegScan;
-
+			
+/****		*****		*****		*****		*****		****/
 void SystemClock_Config(void);
-
-void OperationClock ( void ) {
-	sn++;
-	DigitData[0] = character_table[28+sn%10];
-	DigitData[1] = character_table[28+sn/10];
-	dizii[6] = '0' + sn/10;
-	dizii[7] = '0' + sn%10;
-	if ( sn == 60 ) {
-		dk++;
-		sn = 0;
-		dizii[6] = '0' + sn/10;
-		dizii[7] = '0' + sn%10;
-		DigitData[0] = character_table[28+sn%10];
-		DigitData[1] = character_table[28+sn/10];
-	}
-	if ( dk == 60 ) {
-		sa++;
-		dk = 0; 
-		dizii[3] = '0' + dk/10;
-		dizii[4] = '0' + dk%10;
-		DigitData[0] = character_table[28+sn%10];
-		DigitData[1] = character_table[28+sn/10];
-		DigitData[2] = character_table[28+dk%10];
-		DigitData[3] = character_table[28+dk/10];		
-	}
-	if ( sa == 24 ) {
-		sa = 0;
-		dizii[0] = '0' + sa/10;
-		dizii[1] = '0' + sa%10;
-		DigitData[0] = character_table[28+sn%10];
-		DigitData[1] = character_table[28+sn/10];
-		DigitData[2] = character_table[28+dk%10];
-		DigitData[3] = character_table[28+dk/10];
-		DigitData[4] = character_table[28+sa%10];
-		DigitData[5] = character_table[28+sa/10]; 
-	}
-	lcd2x16_Position( LCD_LINE_2 , 1 );
-	lcd2x16_Write_String( &dizii[0] );
-}
-
+/****		*****		*****		*****		*****		****/
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
 	if( htim->Instance == TIM6 ) 
 		Control_SevSegScan = CHECKIT;
 	if( htim->Instance == TIM3 )
-		OperationClock();
+		Control_PanelScan = CHECKIT;
 }
+/****		*****		*****		*****		*****		****/
+int main ( void ) {
 
-
-int main(void)
-{
   HAL_Init();
 
   SystemClock_Config();
 
   MX_GPIO_Init();
+	
 	MX_TIM6_Init();
 	
 //  MX_DMA_Init();
 //  MX_USART1_UART_Init();
+
   MX_TIM3_Init();
 
 	lcd2x16_Init();
 	lcd2x16_Write_String( "    2x16 LCD");
 	lcd2x16_Position( LCD_LINE_2 , 1 );
 	lcd2x16_Write_String( " #  DENEMESI  #");
-		
+	
 	HAL_Delay( 2000 );
 	__LCD2X16_CLEAR; 
 	lcd2x16_Position( LCD_LINE_2 , 11 );
 	lcd2x16_Write_String( "Bilkon" );
   HAL_Delay( 1000 );
-	
-	lcd2x16_Position( LCD_LINE_1 , 1 );
-	lcd2x16_Write_String( "Sa Dk Sn");
-	
-	sa = 16;
-	dk = 40;
-	sn = 30;	
-	DigitData[0] = character_table[28+sn%10];
-	DigitData[1] = character_table[28+sn/10];
-	DigitData[2] = character_table[28+dk%10];
-	DigitData[3] = character_table[28+dk/10];
-	DigitData[4] = character_table[28+sa%10];
-	DigitData[5] = character_table[28+sa/10]; 
-	
-	dizii[2] = dizii[5] = dizii[8] = dizii[9] = ' ';
-	dizii[6] = '0' + sn/10;
-	dizii[7] = '0' + sn%10;
-	dizii[3] = '0' + dk/10;
-	dizii[4] = '0' + dk%10;
-	dizii[0] = '0' + sa/10;
-	dizii[1] = '0' + sa%10;
-	dizii[10] = 'B';
-	dizii[11] = 'i';
-	dizii[12] = 'l';
-	dizii[13] = 'k';
-	dizii[14] = 'o';
-	dizii[15] = 'n';
-	lcd2x16_Position( LCD_LINE_2 , 1 );
-	lcd2x16_Write_String( &dizii[0] );
-	
-  HAL_TIM_Base_Start_IT( &htim3 );		
+
+//  HAL_TIM_Base_Start_IT( &htim3 );
+
+	SevenSegmentDisplay_SixDigitWrite("888888" , 0x3F );
 	HAL_TIM_Base_Start_IT( &htim6 );
 
 	while ( 1 ) {                                     
-		if ( Control_SevSegScan == CHECKIT ){
-			Control_SevSegScan=CHECKED;
+		if ( Control_SevSegScan == CHECKIT ) {
+			Control_SevSegScan = CHECKED;
 			SevenSegmentDisplay_Scan();
 		}
+		if ( Control_PanelScan  == CHECKIT ) {
+		  Panel_Scan_Led_Button();
+			Control_PanelScan = CHECKED;
+		}
+		
 	}
 }
-
+/****		*****		*****		*****		*****		****/
 /** System Clock Configuration
 */
-void SystemClock_Config(void)
-{
+void SystemClock_Config ( void ) {
 
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
-    /**Initializes the CPU, AHB and APB busses clocks 
-    */
+   /**Initializes the CPU, AHB and APB busses clocks 
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
@@ -184,17 +122,13 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
 
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
   * @retval None
   */
-void _Error_Handler(char * file, int line)
-{
+void _Error_Handler(char * file, int line) {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   while(1) 
@@ -222,13 +156,5 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 
 #endif
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-*/ 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

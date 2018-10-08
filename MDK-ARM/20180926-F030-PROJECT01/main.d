@@ -36,3 +36,5 @@
 20180926-f030-project01\main.o: ../Inc/gpio.h
 20180926-f030-project01\main.o: ../Inc/sevseg.h
 20180926-f030-project01\main.o: ../Inc/lcd2x16.h
+20180926-f030-project01\main.o: ../Inc/menu.h
+20180926-f030-project01\main.o: ../Inc/panel.h

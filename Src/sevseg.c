@@ -1,6 +1,7 @@
 #include "stm32f0xx_hal.h"
 #include "sevseg.h"
 
+#include "main.h"
 
 uint8_t DigitData[6];
 uint8_t	Digit_Dp[6];
@@ -57,7 +58,7 @@ const char character_table[] = {
 			0x7F , //			36			|		"8"		Character		|			8
 			0x6F , //			37			|		"9"		Character		|			9
 };
-/*					----------------------------------------------------------------------------------------------------------						*/
+/****		*****		*****		*****		*****		****/		
 void SevenSegmentDisplay_DigitSelect		( uint8_t	SelectDigit) {
 	/***************************************************************************************************		
 	*
@@ -69,14 +70,21 @@ void SevenSegmentDisplay_DigitSelect		( uint8_t	SelectDigit) {
 	* SelectDigit=0x20 ---> [X][_][_][_][_][_] Left Most Display Digit Enabled
 	*
 	***************************************************************************************************/
-	(SelectDigit&0x20) ? DIGIT_6_ENABLE : DIGIT_6_DISABLE;		
+//	(SelectDigit&0x20) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;
+//	(SelectDigit&0x10) ? DIGIT_1_ENABLE :	DIGIT_1_DISABLE;
+//	(SelectDigit&0x08) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;	
+//	(SelectDigit&0x04) ? DIGIT_1_ENABLE	:	DIGIT_1_DISABLE;		
+//	(SelectDigit&0x02) ? DIGIT_1_ENABLE :	DIGIT_1_DISABLE;	
+//	(SelectDigit&0x01) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;
+
+	(SelectDigit&0x20) ? DIGIT_6_ENABLE : DIGIT_6_DISABLE;	
 	(SelectDigit&0x10) ? DIGIT_5_ENABLE :	DIGIT_5_DISABLE;
 	(SelectDigit&0x08) ? DIGIT_4_ENABLE : DIGIT_4_DISABLE;	
 	(SelectDigit&0x04) ? DIGIT_3_ENABLE	:	DIGIT_3_DISABLE;		
 	(SelectDigit&0x02) ? DIGIT_2_ENABLE :	DIGIT_2_DISABLE;	
 	(SelectDigit&0x01) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;	
 }
-/*					----------------------------------------------------------------------------------------------------------						*/
+/****		*****		*****		*****		*****		****/
 void SevenSegmentDisplay_DigitDataWrite ( char value , uint8_t dp ) {
 	((value&0x01) == 0x01) ? SEGMENT_A_ENABLE  : SEGMENT_A_DISABLE;
 	((value&0x02) == 0x02) ? SEGMENT_B_ENABLE  : SEGMENT_B_DISABLE;
@@ -88,7 +96,7 @@ void SevenSegmentDisplay_DigitDataWrite ( char value , uint8_t dp ) {
 	
 	( dp == 1 )						 ? SEGMENT_DP_ENABLE : SEGMENT_DP_DISABLE;
 }
-/*					----------------------------------------------------------------------------------------------------------						*/
+/****		*****		*****		*****		*****		****/
 void SevenSegmentDisplay_SixDigitWrite	( char DigitString[6] , uint8_t Points ) {
  	for( uint8_t i=0 ; i<=5 ; i++ )	{
 		uint8_t volatile_value;
@@ -109,30 +117,57 @@ void SevenSegmentDisplay_SixDigitWrite	( char DigitString[6] , uint8_t Points ) 
 		Digit_Dp [ i ]  = (  (Points&(0x01<<i))>>i  );
 	}
 }
-/*					----------------------------------------------------------------------------------------------------------						*/
+/****		*****		*****		*****		*****		****/
+void SevenSegmentDisplay_AllSegment 	  ( DisplayState state ) {
+	if ( state == ON ) {
+			SEGMENT_A_ENABLE;
+			SEGMENT_B_ENABLE;
+			SEGMENT_C_ENABLE;
+			SEGMENT_D_ENABLE;
+			SEGMENT_E_ENABLE;
+			SEGMENT_F_ENABLE;
+			SEGMENT_G_ENABLE;
+			SEGMENT_DP_ENABLE;
+	}
+	else/*State==OFF*/ {
+			SEGMENT_A_DISABLE;
+			SEGMENT_B_DISABLE;
+			SEGMENT_C_DISABLE;
+			SEGMENT_D_DISABLE;
+			SEGMENT_E_DISABLE;
+			SEGMENT_F_DISABLE;
+			SEGMENT_G_DISABLE;
+			SEGMENT_DP_DISABLE;
+	}
+
+}
+/****		*****		*****		*****		*****		****/
 void SevenSegmentDisplay_Scan						( void ) {
 	static uint8_t ScanStep = 0;
-	static uint8_t Selected = 0;
+	static uint8_t SelectedDigit = 0;
 	ScanStep++;
 	switch ( ScanStep ) {
-		case  1 :		// Taramanin 25 de biri kadar bütün displayleri pasf yapma
-			SevenSegmentDisplay_DigitSelect   ( 0x01<<Selected );
-			SevenSegmentDisplay_DigitDataWrite( DigitData[Selected] , Digit_Dp[Selected] );
+		case  1: {
+			SevenSegmentDisplay_DigitDataWrite( DigitData[SelectedDigit] , Digit_Dp[SelectedDigit] );
+			SevenSegmentDisplay_DigitSelect 	( 0x01<<SelectedDigit );
 			break;
-		case 24 :
+			}
+		case 24: {
 			SevenSegmentDisplay_DigitSelect		( 0x00 );
-			SevenSegmentDisplay_DigitDataWrite( 0xFF , 0x01 );		
+      SevenSegmentDisplay_AllSegment		( OFF );
 			break;
-		case 25 :	// Tarama sirasi gelen display datlarini kesme
-	    
+			}
+		case 25: {
 			ScanStep = 0;
-			Selected++;
-			if( Selected > 5 ) 
-				Selected = 0;
+			SelectedDigit++;
+			if ( SelectedDigit > 5 )
+				SelectedDigit=0;
+			Control_PanelScan = CHECKIT;
 			break;
-		
-		default :
+			}
+		default:
 			break;
 	}
+	
 }
-/*					----------------------------------------------------------------------------------------------------------						*/
+/****		*****		*****		*****		*****		****/
