@@ -160,9 +160,9 @@ void SevenSegmentDisplay_Scan						( void ) {
 		case 25: {
 			ScanStep = 0;
 			SelectedDigit++;
-			if ( SelectedDigit > 5 )
+			if ( SelectedDigit > 5 ) 
 				SelectedDigit=0;
-			Control_PanelScan = CHECKIT;
+			Control_PanelScan  = CHECKIT;
 			break;
 			}
 		default:

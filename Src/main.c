@@ -18,10 +18,10 @@ control_state Control_SevSegScan,
 void SystemClock_Config(void);
 /****		*****		*****		*****		*****		****/
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
-	if( htim->Instance == TIM6 ) 
+	if( htim->Instance == TIM6 )					//	30 000(Hz)
 		Control_SevSegScan = CHECKIT;
-	if( htim->Instance == TIM3 )
-		Control_PanelScan = CHECKIT;
+//	if( htim->Instance == TIM3 )
+//		Control_PanelScan = CHECKIT;
 }
 /****		*****		*****		*****		*****		****/
 int main ( void ) {
@@ -52,17 +52,19 @@ int main ( void ) {
 
 //  HAL_TIM_Base_Start_IT( &htim3 );
 
-	SevenSegmentDisplay_SixDigitWrite("888888" , 0x3F );
+	SevenSegmentDisplay_SixDigitWrite("o0o0o0" , 0x00 );
 	HAL_TIM_Base_Start_IT( &htim6 );
 
 	while ( 1 ) {                                     
-		if ( Control_SevSegScan == CHECKIT ) {
-			Control_SevSegScan = CHECKED;
+		if ( Control_SevSegScan == CHECKIT ) {			//	30 000(Hz)
+			HAL_GPIO_WritePin( DB0_GPIO_Port , DB0_Pin , GPIO_PIN_SET 	);
 			SevenSegmentDisplay_Scan();
+						HAL_GPIO_WritePin( DB0_GPIO_Port , DB0_Pin , GPIO_PIN_RESET );
+			Control_SevSegScan = CHECKED;
 		}
-		if ( Control_PanelScan  == CHECKIT ) {
-		  Panel_Scan_Led_Button();
-			Control_PanelScan = CHECKED;
+		if ( Control_PanelScan  == CHECKIT ) {			//	1 200(Hz)
+			Panel_Scan_Led_Button();
+      Control_PanelScan = CHECKED;
 		}
 		
 	}
