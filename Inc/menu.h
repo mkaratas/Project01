@@ -1,6 +1,8 @@
 #ifndef __menu_H
 #define __menu_H
 
+#define MENU_ANA_EKRAN										0x00
+
 #define MENU_KAPAK_AC_KAPA								0x11
 #define MENU_KESME_NOKTASI         				0x12
 #define MENU_UST_LIMIT                   	0x13
@@ -19,5 +21,8 @@
 
 #define MENU_HATA_FARKLARI               0x31
 
+
+void Menu_Init 	 ( void );
+void Menu_Update ( void );
 
 #endif /* __MENU_H */

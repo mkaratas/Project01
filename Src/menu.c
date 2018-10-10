@@ -5,11 +5,25 @@
 static uint8_t menu;
 /****		*****		*****		*****		*****		****/
 void Menu_Init 	 ( void ) {
-
+	menu = MENU_ANA_EKRAN;  
 }
 /****		*****		*****		*****		*****		****/
 void Menu_Update ( void ) {
 	switch( menu ) {
+		case MENU_ANA_EKRAN							: {
+			static uint16_t sayac;
+			sayac++;
+			char bsmk[4];
+			
+			bsmk[0] = '0' + (uint8_t)((sayac/1000)%10);
+			bsmk[1] = '0' + (uint8_t)((sayac/100 )%10);
+			bsmk[2] = '0' + (uint8_t)((sayac/10  )%10);
+			bsmk[3] = '0' + (uint8_t)( sayac%10);
+			lcd2x16_Position( LCD_LINE_2 , 13 );
+			lcd2x16_Write_String( &bsmk[0] ) ;
+
+			break;
+		}
 		case MENU_KAPAK_AC_KAPA 				: {
 			
 			break;

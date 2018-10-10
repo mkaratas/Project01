@@ -39,7 +39,7 @@
 
 /****		*****				Clear Display					*****		****/
 #define LCD_CMD_ClearDisplay						0x01
-/****		*****			 		Cursor Home					*****		****/
+/****		*****			 	Cursor Home						*****		****/
 #define LCD_CMD_CursorHome          		0x02
 /****		*****				Entry Mode Set				*****		****/
 #define LCD_CMD_EntryMode_ShiftedRight  0x04

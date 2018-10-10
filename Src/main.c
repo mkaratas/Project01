@@ -11,7 +11,8 @@
 #include "panel.h"
 
 control_state Control_SevSegScan,
-							Control_PanelScan;	
+							Control_PanelScan,
+							Control_ScreenUpdate;	
 
 			
 /****		*****		*****		*****		*****		****/
@@ -20,8 +21,8 @@ void SystemClock_Config(void);
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
 	if( htim->Instance == TIM6 )					//	30 000(Hz)
 		Control_SevSegScan = CHECKIT;
-//	if( htim->Instance == TIM3 )
-//		Control_PanelScan = CHECKIT;
+	if( htim->Instance == TIM3 )
+		Control_ScreenUpdate = CHECKIT;
 }
 /****		*****		*****		*****		*****		****/
 int main ( void ) {
@@ -50,23 +51,25 @@ int main ( void ) {
 	lcd2x16_Write_String( "Bilkon" );
   HAL_Delay( 1000 );
 
-//  HAL_TIM_Base_Start_IT( &htim3 );
+	Menu_Init();
+  HAL_TIM_Base_Start_IT( &htim3 );
 
 	SevenSegmentDisplay_SixDigitWrite("o0o0o0" , 0x00 );
 	HAL_TIM_Base_Start_IT( &htim6 );
 
 	while ( 1 ) {                                     
-		if ( Control_SevSegScan == CHECKIT ) {			//	30 000(Hz)
-			HAL_GPIO_WritePin( DB0_GPIO_Port , DB0_Pin , GPIO_PIN_SET 	);
-			SevenSegmentDisplay_Scan();
-						HAL_GPIO_WritePin( DB0_GPIO_Port , DB0_Pin , GPIO_PIN_RESET );
+		if (  Control_SevSegScan 	== CHECKIT ) {			//	30 000[Hz] -->  33.33 usn 
+			SevenSegmentDisplay_Scan();			            //	1.2 usn RunTime
 			Control_SevSegScan = CHECKED;
 		}
-		if ( Control_PanelScan  == CHECKIT ) {			//	1 200(Hz)
-			Panel_Scan_Led_Button();
+		if (   Control_PanelScan 	== CHECKIT ) {			//	 1 200[Hz] --> 833.33 usn
+			Panel_Scan_Led_Button();                    //	 5 usn RunTime
       Control_PanelScan = CHECKED;
 		}
-		
+		if ( Control_ScreenUpdate == CHECKIT ) {      //	 10		[Hz] --> 100 msn
+//		  Menu_Update();                           	  //	 9.4 msn	RunTime
+			Control_ScreenUpdate = CHECKED;
+		}
 	}
 }
 /****		*****		*****		*****		*****		****/

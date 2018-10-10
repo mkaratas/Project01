@@ -2,9 +2,40 @@
 #include "lcd2x16.h"
 
 #define LCD_4_BITS
-        
+
+
+uint8_t 	lcd_1usn_counter = 0;
+uint32_t  lcd1usn = 0; 
+
+
+
+void lcd2x16_SpecialWrite 		( uint8_t data  , uint8_t rs  ) {
+		LCD2X16_PIN_RS_STATE ( rs );									//	LCD_RS_PIN = rs;			
+    // Send MSB First
+		LCD2X16_PIN_D7_STATE ( (data>>7)&0x01 );			//	LCD_D7_PIN = (data >> 7) & 0x01;
+    LCD2X16_PIN_D6_STATE ( (data>>6)&0x01 );			//	LCD_D6_PIN = (data >> 6) & 0x01;
+    LCD2X16_PIN_D5_STATE ( (data>>5)&0x01 );			//	LCD_D5_PIN = (data >> 5) & 0x01;
+    LCD2X16_PIN_D4_STATE ( (data>>4)&0x01 );			//	LCD_D4_PIN = (data >> 4) & 0x01;
+		
+		// LCD_Pulse
+		LCD2X16_PIN_E_STATE  ( 1 );										//	LCD_E_PIN = 1;
+		for( uint32_t i = 0 ; i<250 	; i++ ) {};			//	delay_us (1);
+    LCD2X16_PIN_E_STATE	 ( 0 );										//	LCD_E_PIN = 0;
+    
+		// Send LSB Last
+    LCD2X16_PIN_D7_STATE ( (data>>3)&0x01 );			//	LCD_D7_PIN = (data >> 3) & 0x01;
+    LCD2X16_PIN_D6_STATE ( (data>>2)&0x01 ); 			//	LCD_D6_PIN = (data >> 2) & 0x01;
+    LCD2X16_PIN_D5_STATE ( (data>>1)&0x01 );			//	LCD_D5_PIN = (data >> 1) & 0x01;
+    LCD2X16_PIN_D4_STATE ( (data>>0)&0x01 );			//	LCD_D4_PIN = (data >> 0) & 0x01;
+    
+		//	LCD_Pulse;
+		LCD2X16_PIN_E_STATE  ( 1 );										//	LCD_E_PIN = 1;
+		for( uint32_t i = 0 ; i<250 	; i++ ) {};			//	delay_us (1);
+    LCD2X16_PIN_E_STATE	 ( 0 );										//	LCD_E_PIN = 0;
+    for( uint32_t i = 0 ; i<15000 ; i++ ) {};			//	delay_us (50);	 Delay entre 2 envois 
+}      
 /****		*****		*****		*****		*****		****/
-void lcd2x16_Write 		( uint8_t data , uint8_t rs ) {
+void lcd2x16_Write 		( uint8_t data  , uint8_t rs  ) {
 #if 	defined (LCD_4_BITS)
 		LCD2X16_PIN_RS_STATE ( rs );									//	LCD_RS_PIN = rs;			
     // Send MSB First
@@ -28,8 +59,8 @@ void lcd2x16_Write 		( uint8_t data , uint8_t rs ) {
 		LCD2X16_PIN_E_STATE  ( 1 );										//	LCD_E_PIN = 1;
 		for( uint32_t i = 0 ; i<250 	; i++ ) {};			//	delay_us (1);
     LCD2X16_PIN_E_STATE	 ( 0 );										//	LCD_E_PIN = 0;
-    for( uint32_t i = 0 ; i<15000 ; i++ ) {};			//	delay_us (50);	 Delay entre 2 envois
-		
+    for( uint32_t i = 0 ; i<15000 ; i++ ) {};			//	delay_us (50);	 Delay entre 2 envois 		
+
 #elif defined (LCD_8_BITS)
     LCD2X16_PIN_RS_STATE ( rs );									//	LCD_RS_PIN = rs;
 		LCD2X16_PIN_D7_STATE ( (data>>7)&0x01 );			//	LCD_D7_PIN = (data >> 7) & 0x01;
@@ -104,7 +135,7 @@ void lcd2x16_Init 		( void ) {
 #endif
 }
 /****		*****		*****		*****		*****		****/
-void lcd2x16_Position ( LCD_LINE line, uint8_t pos ) {
+void lcd2x16_Position ( LCD_LINE line , uint8_t pos ) {
 	switch ( line ) {
 		case LCD_LINE_1 : { 
 					lcd2x16_Write(0x80+pos-1, LCD_COMMAND); 
