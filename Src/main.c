@@ -10,19 +10,17 @@
 #include "menu.h"
 #include "panel.h"
 
-control_state Control_SevSegScan,
-							Control_PanelScan,
-							Control_ScreenUpdate;	
+control_state Control_msn1;
 
 			
 /****		*****		*****		*****		*****		****/
 void SystemClock_Config(void);
 /****		*****		*****		*****		*****		****/
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
-	if( htim->Instance == TIM6 )					//	30 000(Hz)
-		Control_SevSegScan = CHECKIT;
-	if( htim->Instance == TIM3 )
-		Control_ScreenUpdate = CHECKIT;
+	if( htim->Instance == TIM6 )					//	1000(Hz) --> 1 msn
+		Control_msn1 = CHECKIT;
+//	if( htim->Instance == TIM3 )					// 100 000(Hz) --> 10usn
+//		Control_msn1 = CHECKIT;
 }
 /****		*****		*****		*****		*****		****/
 int main ( void ) {
@@ -47,28 +45,22 @@ int main ( void ) {
 	
 	HAL_Delay( 2000 );
 	__LCD2X16_CLEAR; 
-	lcd2x16_Position( LCD_LINE_2 , 11 );
-	lcd2x16_Write_String( "Bilkon" );
-  HAL_Delay( 1000 );
 
-	Menu_Init();
-  HAL_TIM_Base_Start_IT( &htim3 );
+	Menu_Init(); 
 
-	SevenSegmentDisplay_SixDigitWrite("o0o0o0" , 0x00 );
+	Lcd2x16_BufferSet( LCD_LINE_1 , "123456789ABCDEF");
+	Lcd2x16_BufferSet( LCD_LINE_2 , "abcdefghijklmnt");
+	SevenSegmentDisplay_SixDigitWrite	( "123456" , 0x00 );
 	HAL_TIM_Base_Start_IT( &htim6 );
+	
+//  HAL_TIM_Base_Start_IT( &htim3 );
 
-	while ( 1 ) {                                     
-		if (  Control_SevSegScan 	== CHECKIT ) {			//	30 000[Hz] -->  33.33 usn 
-			SevenSegmentDisplay_Scan();			            //	1.2 usn RunTime
-			Control_SevSegScan = CHECKED;
-		}
-		if (   Control_PanelScan 	== CHECKIT ) {			//	 1 200[Hz] --> 833.33 usn
-			Panel_Scan_Led_Button();                    //	 5 usn RunTime
-      Control_PanelScan = CHECKED;
-		}
-		if ( Control_ScreenUpdate == CHECKIT ) {      //	 10		[Hz] --> 100 msn
-//		  Menu_Update();                           	  //	 9.4 msn	RunTime
-			Control_ScreenUpdate = CHECKED;
+	while ( 1 ) {
+		if ( Control_msn1 == CHECKIT ) {
+			SevenSegmentDisplay_Scan();			//	RunTime = 21 usn 
+			Panel_Scan_Led_Button();        //  RunTime = 5 usn 
+			Lcd2x16_Scan();									//	RunTime = 8 usn 
+			Control_msn1 = CHECKED;			
 		}
 	}
 }

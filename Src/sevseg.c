@@ -143,31 +143,13 @@ void SevenSegmentDisplay_AllSegment 	  ( DisplayState state ) {
 }
 /****		*****		*****		*****		*****		****/
 void SevenSegmentDisplay_Scan						( void ) {
-	static uint8_t ScanStep = 0;
+	SevenSegmentDisplay_DigitSelect		( 0x00 );
+	SevenSegmentDisplay_AllSegment		( OFF );
 	static uint8_t SelectedDigit = 0;
-	ScanStep++;
-	switch ( ScanStep ) {
-		case  1: {
-			SevenSegmentDisplay_DigitDataWrite( DigitData[SelectedDigit] , Digit_Dp[SelectedDigit] );
-			SevenSegmentDisplay_DigitSelect 	( 0x01<<SelectedDigit );
-			break;
-			}
-		case 24: {
-			SevenSegmentDisplay_DigitSelect		( 0x00 );
-      SevenSegmentDisplay_AllSegment		( OFF );
-			break;
-			}
-		case 25: {
-			ScanStep = 0;
-			SelectedDigit++;
-			if ( SelectedDigit > 5 ) 
-				SelectedDigit=0;
-			Control_PanelScan  = CHECKIT;
-			break;
-			}
-		default:
-			break;
-	}
-	
+  SelectedDigit++;
+	if ( SelectedDigit >5 )
+		SelectedDigit = 0;
+	SevenSegmentDisplay_DigitDataWrite( DigitData[SelectedDigit] , Digit_Dp[SelectedDigit] );
+	SevenSegmentDisplay_DigitSelect 	( 0x01<<SelectedDigit );
 }
 /****		*****		*****		*****		*****		****/

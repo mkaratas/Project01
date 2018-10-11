@@ -78,10 +78,14 @@ typedef enum {
    LCD_LINE_4 = 4
 }LCD_LINE;
 
+void Lcd2x16_BufferSet		( LCD_LINE line , char data[16] );
+void Lcd2x16_Scan 				( void );
 void lcd2x16_Write 				( uint8_t data , uint8_t rs );
 void lcd2x16_Init 				( void );
 void lcd2x16_Position 		( LCD_LINE line, uint8_t pos ); 
 void lcd2x16_Write_String ( char *string );
+
+
 
 
 #endif /*__lcd2x16_H */
