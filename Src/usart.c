@@ -1,61 +1,21 @@
-/**
-  ******************************************************************************
-  * File Name          : USART.c
-  * Description        : This file provides code for the configuration
-  *                      of the USART instances.
-  ******************************************************************************
-  ** This notice applies to any and all portions of this file
-  * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
-  * inserted by the user or by software development tools
-  * are owned by their respective copyright owners.
-  *
-  * COPYRIGHT(c) 2018 STMicroelectronics
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
-
-/* Includes ------------------------------------------------------------------*/
 #include "usart.h"
 
 #include "gpio.h"
 #include "dma.h"
 
-/* USER CODE BEGIN 0 */
+#include "lcd2x16.h"
+#include "sevseg.h"
+#include "panel.h"
 
-/* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart1_tx;
 
-/* USART1 init function */
+uint8_t usart1_rx_data[Usart1_Buffer_Size];
 
-void MX_USART1_UART_Init(void)
-{
 
+void MX_USART1_UART_Init( void ) {
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
@@ -67,24 +27,13 @@ void MX_USART1_UART_Init(void)
   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
     _Error_Handler(__FILE__, __LINE__);
-  }
-
 }
-
-void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
-{
-
+/****		*****		*****		*****		*****		****/
+void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle) {
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(uartHandle->Instance==USART1)
-  {
-  /* USER CODE BEGIN USART1_MspInit 0 */
-
-  /* USER CODE END USART1_MspInit 0 */
-    /* USART1 clock enable */
-    __HAL_RCC_USART1_CLK_ENABLE();
-  
+  if ( uartHandle->Instance==USART1 )  {
+    __HAL_RCC_USART1_CLK_ENABLE();  
     /**USART1 GPIO Configuration    
     PA9     ------> USART1_TX
     PA10     ------> USART1_RX 
@@ -106,13 +55,10 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     hdma_usart1_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
     hdma_usart1_rx.Init.Mode = DMA_CIRCULAR;
     hdma_usart1_rx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_usart1_rx) != HAL_OK)
-    {
-      _Error_Handler(__FILE__, __LINE__);
-    }
+    if ( HAL_DMA_Init(&hdma_usart1_rx) != HAL_OK ) 
+			_Error_Handler(__FILE__, __LINE__);
 
     __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart1_rx);
-
     /* USART1_TX Init */
     hdma_usart1_tx.Instance = DMA1_Channel2;
     hdma_usart1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
@@ -123,24 +69,18 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     hdma_usart1_tx.Init.Mode = DMA_NORMAL;
     hdma_usart1_tx.Init.Priority = DMA_PRIORITY_LOW;
     if (HAL_DMA_Init(&hdma_usart1_tx) != HAL_OK)
-    {
-      _Error_Handler(__FILE__, __LINE__);
-    }
+			_Error_Handler(__FILE__, __LINE__);
 
     __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart1_tx);
 
     /* USART1 interrupt Init */
     HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
-  /* USER CODE BEGIN USART1_MspInit 1 */
 
-  /* USER CODE END USART1_MspInit 1 */
   }
 }
-
-void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
-{
-
+/****		*****		*****		*****		*****		****/
+void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle) {
   if(uartHandle->Instance==USART1)
   {
   /* USER CODE BEGIN USART1_MspDeInit 0 */
@@ -165,18 +105,85 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
   /* USER CODE END USART1_MspDeInit 1 */
   }
-} 
+}
+void UsartReceiveData_SearchCommand ( void ) {
+	switch( usart1_rx_data[0] ) {
+		case 'W' : //	SevenSegmentDisplay | 2x16LCD | PanelLeds Data Update
+			if ( usart1_rx_data[1] <= 0x03 ) 
+				Lcd2x16_BufferSet( (uint8_t)usart1_rx_data[1] , (char *)&usart1_rx_data[2] );  
+			if ( usart1_rx_data[1] == 0x04 ) { 
+				SevenSegmentDisplay_SixDigitWrite( (char *)&usart1_rx_data[2] , usart1_rx_data[8] );	
+				PanelLedButton_ChangeLedState( usart1_rx_data[9] );
+			}
+			break;
+		case 'R' : // Panel Buttons Data Update
+			break;
+		case 'C' : // Slave LCD Command
+			break;
+		default	 :
+			break;
+	
+	}	
+}
 
-/* USER CODE BEGIN 1 */
 
-/* USER CODE END 1 */
 
-/**
-  * @}
-  */
 
-/**
-  * @}
-  */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

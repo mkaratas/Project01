@@ -30,8 +30,8 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
-F (../Src/usart.c)(0x5BAC8F81)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\usart.o --omf_browse 20180926-f030-project01\usart.crf --depend 20180926-f030-project01\usart.d)
-I (../Inc/usart.h)(0x5BAC8F81)
+F (../Src/usart.c)(0x5BC4AD6D)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\usart.o --omf_browse 20180926-f030-project01\usart.crf --depend 20180926-f030-project01\usart.d)
+I (../Inc/usart.h)(0x5BC4A7F2)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x5A72E26C)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5BAC8F81)
 I (../Inc/main.h)(0x5BBB6326)
@@ -64,7 +64,10 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
 I (../Inc/gpio.h)(0x5BB472A1)
 I (../Inc/dma.h)(0x5BAC8F80)
-F (../Src/main.c)(0x5BBF2B43)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\main.o --omf_browse 20180926-f030-project01\main.crf --depend 20180926-f030-project01\main.d)
+I (../Inc/lcd2x16.h)(0x5BC492F9)
+I (../Inc/sevseg.h)(0x5BC48D92)
+I (../Inc/panel.h)(0x5BBF5251)
+F (../Src/main.c)(0x5BC4A7F2)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\main.o --omf_browse 20180926-f030-project01\main.crf --depend 20180926-f030-project01\main.d)
 I (../Inc/main.h)(0x5BBB6326)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x5A72E26C)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5BAC8F81)
@@ -97,12 +100,12 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
 I (../Inc/dma.h)(0x5BAC8F80)
 I (../Inc/tim.h)(0x5BAC8F80)
-I (../Inc/usart.h)(0x5BAC8F81)
+I (../Inc/usart.h)(0x5BC4A7F2)
 I (../Inc/gpio.h)(0x5BB472A1)
-I (../Inc/sevseg.h)(0x5BB5FCEC)
-I (../Inc/lcd2x16.h)(0x5BBF27D1)
-I (../Inc/menu.h)(0x5BBC5B80)
-I (../Inc/panel.h)(0x5BBB10C5)
+I (../Inc/sevseg.h)(0x5BC48D92)
+I (../Inc/lcd2x16.h)(0x5BC492F9)
+I (../Inc/menu.h)(0x5BC09054)
+I (../Inc/panel.h)(0x5BBF5251)
 F (../Src/stm32f0xx_it.c)(0x5BAC8F81)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\stm32f0xx_it.o --omf_browse 20180926-f030-project01\stm32f0xx_it.crf --depend 20180926-f030-project01\stm32f0xx_it.d)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x5A72E26C)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5BAC8F81)
@@ -231,7 +234,7 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
-F (..\Src\sevseg.c)(0x5BBF1236)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\sevseg.o --omf_browse 20180926-f030-project01\sevseg.crf --depend 20180926-f030-project01\sevseg.d)
+F (..\Src\sevseg.c)(0x5BC487C8)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\sevseg.o --omf_browse 20180926-f030-project01\sevseg.crf --depend 20180926-f030-project01\sevseg.d)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x5A72E26C)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5BAC8F81)
 I (../Inc/main.h)(0x5BBB6326)
@@ -262,8 +265,8 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
-I (../Inc/sevseg.h)(0x5BB5FCEC)
-F (..\Src\lcd2x16.c)(0x5BBF2927)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\lcd2x16.o --omf_browse 20180926-f030-project01\lcd2x16.crf --depend 20180926-f030-project01\lcd2x16.d)
+I (../Inc/sevseg.h)(0x5BC48D92)
+F (..\Src\lcd2x16.c)(0x5BC4A0E0)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\lcd2x16.o --omf_browse 20180926-f030-project01\lcd2x16.crf --depend 20180926-f030-project01\lcd2x16.d)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x5A72E26C)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5BAC8F81)
 I (../Inc/main.h)(0x5BBB6326)
@@ -294,8 +297,8 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
-I (../Inc/lcd2x16.h)(0x5BBF27D1)
-F (..\Src\menu.c)(0x5BBDA818)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\menu.o --omf_browse 20180926-f030-project01\menu.crf --depend 20180926-f030-project01\menu.d)
+I (../Inc/lcd2x16.h)(0x5BC492F9)
+F (..\Src\menu.c)(0x5BC46DC8)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\menu.o --omf_browse 20180926-f030-project01\menu.crf --depend 20180926-f030-project01\menu.d)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x5A72E26C)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5BAC8F81)
 I (../Inc/main.h)(0x5BBB6326)
@@ -326,9 +329,9 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
-I (../Inc/menu.h)(0x5BBC5B80)
-I (../Inc/lcd2x16.h)(0x5BBF27D1)
-F (..\Src\panel.c)(0x5BBB6736)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\panel.o --omf_browse 20180926-f030-project01\panel.crf --depend 20180926-f030-project01\panel.d)
+I (../Inc/menu.h)(0x5BC09054)
+I (../Inc/lcd2x16.h)(0x5BC492F9)
+F (..\Src\panel.c)(0x5BC4AD53)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\panel.o --omf_browse 20180926-f030-project01\panel.crf --depend 20180926-f030-project01\panel.d)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x5A72E26C)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5BAC8F81)
 I (../Inc/main.h)(0x5BBB6326)
@@ -360,7 +363,7 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x5A72E26D)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x5A72E26D)
 I (../Inc/gpio.h)(0x5BB472A1)
-I (../Inc/panel.h)(0x5BBB10C5)
+I (../Inc/panel.h)(0x5BBF5251)
 F (startup_stm32f030x8.s)(0x5BAC8F84)(--cpu Cortex-M0 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include--pd "__UVISION_VERSION SETA 524" --pd "_RTE_ SETA 1" --pd "STM32F030x8 SETA 1"--list startup_stm32f030x8.lst --xref -o 20180926-f030-project01\startup_stm32f030x8.o --depend 20180926-f030-project01\startup_stm32f030x8.d)
 F (../Src/system_stm32f0xx.c)(0x5A72E23D)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include --C99-I.\RTE\_20180926-F030-PROJECT01-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F030x8 -DUSE_HAL_DRIVER -DSTM32F030x8-o 20180926-f030-project01\system_stm32f0xx.o --omf_browse 20180926-f030-project01\system_stm32f0xx.crf --depend 20180926-f030-project01\system_stm32f0xx.d)
 I (../Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h)(0x5A72E23D)

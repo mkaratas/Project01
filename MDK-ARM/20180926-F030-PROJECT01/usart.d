@@ -33,3 +33,6 @@
 20180926-f030-project01\usart.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
 20180926-f030-project01\usart.o: ../Inc/gpio.h
 20180926-f030-project01\usart.o: ../Inc/dma.h
+20180926-f030-project01\usart.o: ../Inc/lcd2x16.h
+20180926-f030-project01\usart.o: ../Inc/sevseg.h
+20180926-f030-project01\usart.o: ../Inc/panel.h

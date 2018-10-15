@@ -6,12 +6,6 @@
 uint8_t DigitData[6];
 uint8_t	Digit_Dp[6];
 
-//	ekrana_yaz( "1.2345" );
-//	ekrana_yaz( char *value );
-//	ekrana_yaz( char value[6] );
-//	ekrana_yaz( char value[6], char decimal_point );
-
-
 const char character_table[] = {
 /*---------------------------------------------------------------------*/
 /* 		Array		|		Array		  |			 Array			  	|		 Array Old			 */
@@ -70,13 +64,6 @@ void SevenSegmentDisplay_DigitSelect		( uint8_t	SelectDigit) {
 	* SelectDigit=0x20 ---> [X][_][_][_][_][_] Left Most Display Digit Enabled
 	*
 	***************************************************************************************************/
-//	(SelectDigit&0x20) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;
-//	(SelectDigit&0x10) ? DIGIT_1_ENABLE :	DIGIT_1_DISABLE;
-//	(SelectDigit&0x08) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;	
-//	(SelectDigit&0x04) ? DIGIT_1_ENABLE	:	DIGIT_1_DISABLE;		
-//	(SelectDigit&0x02) ? DIGIT_1_ENABLE :	DIGIT_1_DISABLE;	
-//	(SelectDigit&0x01) ? DIGIT_1_ENABLE : DIGIT_1_DISABLE;
-
 	(SelectDigit&0x20) ? DIGIT_6_ENABLE : DIGIT_6_DISABLE;	
 	(SelectDigit&0x10) ? DIGIT_5_ENABLE :	DIGIT_5_DISABLE;
 	(SelectDigit&0x08) ? DIGIT_4_ENABLE : DIGIT_4_DISABLE;	
@@ -93,28 +80,27 @@ void SevenSegmentDisplay_DigitDataWrite ( char value , uint8_t dp ) {
 	((value&0x10) == 0x10) ? SEGMENT_E_ENABLE  : SEGMENT_E_DISABLE;
 	((value&0x20) == 0x20) ? SEGMENT_F_ENABLE  : SEGMENT_F_DISABLE;
 	((value&0x40) == 0x40) ? SEGMENT_G_ENABLE  : SEGMENT_G_DISABLE;	
-	
-	( dp == 1 )						 ? SEGMENT_DP_ENABLE : SEGMENT_DP_DISABLE;
+	( 		dp			== 0x01) ? SEGMENT_DP_ENABLE : SEGMENT_DP_DISABLE;
 }
 /****		*****		*****		*****		*****		****/
 void SevenSegmentDisplay_SixDigitWrite	( char DigitString[6] , uint8_t Points ) {
  	for( uint8_t i=0 ; i<=5 ; i++ )	{
-		uint8_t volatile_value;
-		volatile_value  = ( (uint8_t)DigitString[i] );
-		if( (volatile_value==ASCII_NULL_VALUE) | (volatile_value==ASCII_SPACE_VALUE)  ) 
-			volatile_value = 10;
-		if( volatile_value == ASCII_DASH_VALUE  ) 
-			volatile_value = DASH_CHARACTER;
-		if( volatile_value == ASCII_EQUAL_VALUE )
-			volatile_value = EQUAL_CHARACTER;
-		if( (volatile_value>=ASCI_NUMBER_HEAD) & (ASCI_NUMBER_END>=volatile_value) )
-			volatile_value = volatile_value - ASCI_NUMBER_HEAD + CHARACTER_TABLE_NUMBER_HEAD;
-		if( (volatile_value>=ASCII_UPPERCASE_HEAD) & (ASCII_UPPERCASE_END>=volatile_value) )
-			volatile_value = volatile_value - ASCII_UPPERCASE_HEAD;
-		if( (volatile_value>=ASCII_LOWERCASE_HEAD) & (ASCII_LOWERCASE_END>=volatile_value) )
-			volatile_value = volatile_value - ASCII_LOWERCASE_HEAD;
-    DigitData[5-i] = character_table[volatile_value];
-		Digit_Dp [ i ]  = (  (Points&(0x01<<i))>>i  );
+		uint8_t casual_val;
+		casual_val  = ( (uint8_t)DigitString[i] );
+		if( (casual_val==ASCII_NULL_VALUE) | (casual_val==ASCII_SPACE_VALUE)  ) 
+			casual_val = 10;
+		if( casual_val == ASCII_DASH_VALUE  ) 
+			casual_val = DASH_CHARACTER;
+		if( casual_val == ASCII_EQUAL_VALUE )
+			casual_val = EQUAL_CHARACTER;
+		if( (casual_val>=ASCI_NUMBER_HEAD) & (ASCI_NUMBER_END>=casual_val) )
+			casual_val = casual_val - ASCI_NUMBER_HEAD + CHARACTER_TABLE_NUMBER_HEAD;
+		if( (casual_val>=ASCII_UPPERCASE_HEAD) & (ASCII_UPPERCASE_END>=casual_val) )
+			casual_val = casual_val - ASCII_UPPERCASE_HEAD;
+		if( (casual_val>=ASCII_LOWERCASE_HEAD) & (ASCII_LOWERCASE_END>=casual_val) )
+			casual_val = casual_val - ASCII_LOWERCASE_HEAD;
+    DigitData[5-i] = character_table[casual_val];
+		Digit_Dp [ i ] = (  (Points&(0x01<<i))>>i  );
 	}
 }
 /****		*****		*****		*****		*****		****/

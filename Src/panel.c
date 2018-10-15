@@ -5,36 +5,42 @@
 #include "panel.h"
 
 
-PanelLed 					PanelLed_L1_State = LED_ON,
-									PanelLed_L2_State = LED_OFF ,
-									PanelLed_L3_State = LED_ON, 
-									PanelLed_L4_State = LED_OFF;
+PanelLed 					PanelLed_L1_State = LED_ON ,
+									PanelLed_L2_State = LED_ON ,
+									PanelLed_L3_State = LED_ON , 
+									PanelLed_L4_State = LED_ON ;
 
-PanelButtonState  Button_Menu,
+PanelButtonState  Button_Menu ,
 								  Button_Start,
-								  Button_Up,
+								  Button_Up 	,
 								  Button_Right,
-								  Button_Down,
-								  Button_Left,
+								  Button_Down ,
+								  Button_Left ,
 							    Button_Enter;
 									
-uint16_t count_menu = 0,
-				 count_start= 0,
-				 count_up   = 0,
-				 count_right= 0,
-				 count_down = 0,
-				 count_left = 0,
-				 count_enter= 0;
-
-
-void Panel_Scan_Led_Button ( void ) {
- static uint8_t step_counter;			//	A value of 5 mili seconds increases
+uint16_t 					count_menu = 0,
+									count_start= 0,
+									count_up   = 0,
+									count_right= 0,
+									count_down = 0,
+									count_left = 0,
+									count_enter= 0;
+									
+void PanelLedButton_ChangeLedState( uint8_t leds ) {
+	(( leds&0x01)==0x01) ? ( PanelLed_L1_State= LED_ON ) : ( PanelLed_L1_State = LED_OFF );
+	(( leds&0x02)==0x02) ? ( PanelLed_L2_State= LED_ON ) : ( PanelLed_L2_State = LED_OFF );
+	(( leds&0x04)==0x04) ? ( PanelLed_L3_State= LED_ON ) : ( PanelLed_L3_State = LED_OFF );
+	(( leds&0x08)==0x08) ? ( PanelLed_L4_State= LED_ON ) : ( PanelLed_L4_State = LED_OFF );
+}
+/****		*****		*****		*****		*****		****/
+void PanelLedButton_Scan ( void ) {
+ static uint8_t step_counter;			//	A value of 1 mili seconds increases
  static GPIO_PinState sampling1[7];
  static GPIO_PinState sampling2[7];
  static GPIO_PinState sampling3[7];
  step_counter++;
  switch ( step_counter ) {
-		case 1: {
+		case 1: {		//
 			PanelLedsAnode_High;
 			( PanelLed_L1_State == LED_ON ) ? PanelLed_L1_ON : PanelLed_L1_OFF;
 			( PanelLed_L2_State == LED_ON ) ? PanelLed_L2_ON : PanelLed_L2_OFF;
@@ -42,7 +48,7 @@ void Panel_Scan_Led_Button ( void ) {
 			( PanelLed_L4_State == LED_ON ) ? PanelLed_L4_ON : PanelLed_L4_OFF;
 			break;
 		}
-	  case 2: {
+	  case 2: {		//
 			PanelLedsAnode_Low;
 			HAL_GPIO_WritePin( Panel7_GPIO_Port , Panel7_Pin , GPIO_PIN_SET 	);
 			HAL_GPIO_WritePin( Panel6_GPIO_Port , Panel6_Pin , GPIO_PIN_RESET );
@@ -50,7 +56,7 @@ void Panel_Scan_Led_Button ( void ) {
 			HAL_GPIO_WritePin( Panel4_GPIO_Port , Panel4_Pin , GPIO_PIN_RESET );					                     
 			break;
 		}
-		case 3: {
+		case 3: {		//
 			/****	*****	Enter Buton Islemleri *****	****/
 			sampling3[ BTN_ARRAY_NUMBER_ENTER ] = BTN_ENTER_STATE;
 			if( !sampling1[BTN_ARRAY_NUMBER_ENTER] & !sampling2[BTN_ARRAY_NUMBER_ENTER] & sampling3[BTN_ARRAY_NUMBER_ENTER] )
@@ -65,7 +71,7 @@ void Panel_Scan_Led_Button ( void ) {
 			HAL_GPIO_WritePin( Panel6_GPIO_Port , Panel6_Pin , GPIO_PIN_SET		);
 			break;
 		}
-		case 4: {
+		case 4: {		// 
 			/****	*****	Down Buton Islemleri *****	****/
 			sampling3[ BTN_ARRAY_NUMBER_DOWN ] = BTN_DOWN_STATE;
 			if( !sampling1[BTN_ARRAY_NUMBER_DOWN]  & !sampling2[BTN_ARRAY_NUMBER_DOWN]  & sampling3[BTN_ARRAY_NUMBER_DOWN] 	)
@@ -80,7 +86,7 @@ void Panel_Scan_Led_Button ( void ) {
 			HAL_GPIO_WritePin( Panel5_GPIO_Port , Panel5_Pin , GPIO_PIN_SET   );
 			break;
 		}
-		case 5: {
+		case 5: {		//	  
 			/****	*****	Menu Buton Islemleri *****	****/
 			sampling3[ BTN_ARRAY_NUMBER_MENU ] = BTN_MENU_STATE;
 			if( !sampling1[BTN_ARRAY_NUMBER_MENU]  & !sampling2[BTN_ARRAY_NUMBER_MENU]  & sampling3[BTN_ARRAY_NUMBER_MENU]  )
@@ -94,7 +100,7 @@ void Panel_Scan_Led_Button ( void ) {
 			HAL_GPIO_WritePin( Panel4_GPIO_Port , Panel4_Pin , GPIO_PIN_SET   );
 			break;
 		}
-		case 6: {
+		case 6: {		//	
 			sampling3[ BTN_ARRAY_NUMBER_START	 ] = BTN_START_STATE;
 			if( !sampling1[BTN_ARRAY_NUMBER_START] & !sampling2[BTN_ARRAY_NUMBER_START] & sampling3[BTN_ARRAY_NUMBER_START] )
 					count_start++;	//	Button_Start = Press;
@@ -109,6 +115,5 @@ void Panel_Scan_Led_Button ( void ) {
 		
 			
  }
- 
 }
-
+/****		*****		*****		*****		*****		****/

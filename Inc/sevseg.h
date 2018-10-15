@@ -75,5 +75,5 @@ void SevenSegmentDisplay_DigitDataWrite ( char value , uint8_t dp );
 void SevenSegmentDisplay_SixDigitWrite	( char DigitString[6] , uint8_t Points );
 void SevenSegmentDisplay_AllSegment 	  ( DisplayState state );
 void SevenSegmentDisplay_Scan						( void );
-
+void Display_2x16LCD_DataUpdate					( char data[9] );
 #endif /*__display_H */

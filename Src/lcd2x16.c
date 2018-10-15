@@ -3,27 +3,25 @@
 
 #define LCD_4_BITS
 
-/*													S1	,  1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10, 11, 12, 13, 14, 15, 16  	*/ 
-char lcd2x16_Buff[34] = { 0x80  , ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-													0xC0  , ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };
-/*													S2	, 18 , 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 	*/
-	
+/*												  	S1	 ,  1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10, 11, 12, 13, 14, 15, 16 	*/ 
+char   lcd2x16_Buff[34] = { 0x80   , ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+													  0xC0   , ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };
+/*													  S2	 , 18 , 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 	*/
 /**
   * @brief  2x16 LCD'nin Bufferine data yazmaya yarar.
-  * @param  Channel TIM Channel to be disabled
+  * @param  LCD'nin data yazilacak satiri girilir.
   *          This parameter can be one of the following values:
-  *            @arg LCD_LINE_1: TIM Channel 1 selected
-  *            @arg LCD_LINE_2: TIM Channel 2 selected
-  * @retval HAL status
+  *            @arg LCD_LINE_1: LCD LINE 1 selected
+  *            @arg LCD_LINE_2: LCD LINE 2 selected
+  * @retval Yok
 */
-void Lcd2x16_BufferSet( LCD_LINE line , char data[16] ) {
-		if      ( line == LCD_LINE_1 )
-			for ( uint8_t i = 0 ; i<16 ; i++ )
-				lcd2x16_Buff[ i+1  ] = data[i];
-		else // ( line == LCD_LINE_2 ) 
-			for ( uint8_t i = 0 ; i<16 ; i++ )
-				lcd2x16_Buff[ i+18 ] = data[ i ];
-} 
+void Lcd2x16_BufferSet( uint8_t lcd_portion , char data[8] ) {
+	if ( lcd_portion <= 3 ) {
+		uint8_t casual_indis = 8*lcd_portion + lcd_portion/2 + 1;
+		for( uint8_t i = 0 ; i<=7 ; i++ )
+			lcd2x16_Buff[casual_indis+i] = data[i];
+	}
+}		
 /****		*****		*****		*****		*****		****/
 void Lcd2x16_Scan 		( void ) {
 #if 	defined (LCD_4_BITS)

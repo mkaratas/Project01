@@ -17,14 +17,6 @@
 #define PanelLed_L4_ON        HAL_GPIO_WritePin( Panel7_GPIO_Port , Panel7_Pin , GPIO_PIN_RESET )
 #define PanelLed_L4_OFF       HAL_GPIO_WritePin( Panel7_GPIO_Port , Panel7_Pin , GPIO_PIN_SET 	)
 
-#define BTN_MENU_STATE        HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
-#define BTN_START_STATE       HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
-#define BTN_ENTER_STATE       HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
-#define BTN_UP_STATE          HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
-#define BTN_RIGHT_STATE       HAL_GPIO_ReadPin ( Panel2_GPIO_Port , Panel2_Pin )
-#define BTN_DOWN_STATE        HAL_GPIO_ReadPin ( Panel2_GPIO_Port , Panel2_Pin )
-#define BTN_LEFT_STATE				HAL_GPIO_ReadPin ( Panel2_GPIO_Port , Panel2_Pin )
-
 #define BTN_ARRAY_NUMBER_MENU		0
 #define BTN_ARRAY_NUMBER_START  1
 #define BTN_ARRAY_NUMBER_UP     2
@@ -32,6 +24,14 @@
 #define BTN_ARRAY_NUMBER_DOWN   4
 #define BTN_ARRAY_NUMBER_RIGHT  5
 #define BTN_ARRAY_NUMBER_LEFT   6
+
+#define BTN_MENU_STATE        HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
+#define BTN_START_STATE       HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
+#define BTN_ENTER_STATE       HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
+#define BTN_UP_STATE          HAL_GPIO_ReadPin ( Panel3_GPIO_Port , Panel3_Pin )
+#define BTN_RIGHT_STATE       HAL_GPIO_ReadPin ( Panel2_GPIO_Port , Panel2_Pin )
+#define BTN_DOWN_STATE        HAL_GPIO_ReadPin ( Panel2_GPIO_Port , Panel2_Pin )
+#define BTN_LEFT_STATE				HAL_GPIO_ReadPin ( Panel2_GPIO_Port , Panel2_Pin )
 
 				 
 typedef enum {
@@ -45,6 +45,6 @@ typedef enum {
 }PanelButtonState;
 
 
-void Panel_Scan_Led_Button ( void );
+void PanelLedButton_Scan( void );
 
 #endif /* __PANEL_H */

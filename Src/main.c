@@ -10,14 +10,20 @@
 #include "menu.h"
 #include "panel.h"
 
-control_state Control_msn1;
+control_state Control_msn1,
+							Control_Usart_Rx;
+							
 
-			
 /****		*****		*****		*****		*****		****/
 void SystemClock_Config(void);
 /****		*****		*****		*****		*****		****/
+void HAL_UART_RxCpltCallback( UART_HandleTypeDef *huart ) {
+		if ( huart -> Instance == USART1 ) 
+			Control_Usart_Rx = CHECKIT;
+} 
+/****		*****		*****		*****		*****		****/
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim ) {
-	if( htim->Instance == TIM6 )					//	1000(Hz) --> 1 msn
+	if( htim->Instance == TIM6 )		//	1000(Hz) --> 1 msn
 		Control_msn1 = CHECKIT;
 //	if( htim->Instance == TIM3 )					// 100 000(Hz) --> 10usn
 //		Control_msn1 = CHECKIT;
@@ -33,34 +39,34 @@ int main ( void ) {
 	
 	MX_TIM6_Init();
 	
-//  MX_DMA_Init();
-//  MX_USART1_UART_Init();
+  MX_DMA_Init();
+  MX_USART1_UART_Init();
+	HAL_UART_Receive_DMA ( &huart1 , &usart1_rx_data[0] , 10 );
 
   MX_TIM3_Init();
 
 	lcd2x16_Init();
-	lcd2x16_Write_String( "    2x16 LCD");
-	lcd2x16_Position( LCD_LINE_2 , 1 );
-	lcd2x16_Write_String( " #  DENEMESI  #");
-	
-	HAL_Delay( 2000 );
-	__LCD2X16_CLEAR; 
 
-	Menu_Init(); 
 
-	Lcd2x16_BufferSet( LCD_LINE_1 , "123456789ABCDEF");
-	Lcd2x16_BufferSet( LCD_LINE_2 , "abcdefghijklmnt");
-	SevenSegmentDisplay_SixDigitWrite	( "123456" , 0x00 );
+//	lcd2x16_Buff[  1 ] = (char)"UsartCont. Slave";
+//	lcd2x16_Buff[ 17 ] = (char)"LCD & Seven Seg.";
+	SevenSegmentDisplay_SixDigitWrite	( "000000" , 0x00 );
 	HAL_TIM_Base_Start_IT( &htim6 );
+	
+	Menu_Init();
 	
 //  HAL_TIM_Base_Start_IT( &htim3 );
 
 	while ( 1 ) {
 		if ( Control_msn1 == CHECKIT ) {
 			SevenSegmentDisplay_Scan();			//	RunTime = 21 usn 
-			Panel_Scan_Led_Button();        //  RunTime = 5 usn 
-			Lcd2x16_Scan();									//	RunTime = 8 usn 
+			PanelLedButton_Scan();        	//  RunTime = 5 usn 
+			Lcd2x16_Scan();									//	RunTime = 8 usn
 			Control_msn1 = CHECKED;			
+		}
+		if ( Control_Usart_Rx == CHECKIT  ) {
+			UsartReceiveData_SearchCommand();
+		  Control_Usart_Rx = CHECKED;
 		}
 	}
 }

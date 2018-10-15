@@ -78,7 +78,9 @@ typedef enum {
    LCD_LINE_4 = 4
 }LCD_LINE;
 
-void Lcd2x16_BufferSet		( LCD_LINE line , char data[16] );
+extern char lcd2x16_Buff[34];
+
+void Lcd2x16_BufferSet		( uint8_t lcd_portion , char data[8] );
 void Lcd2x16_Scan 				( void );
 void lcd2x16_Write 				( uint8_t data , uint8_t rs );
 void lcd2x16_Init 				( void );
